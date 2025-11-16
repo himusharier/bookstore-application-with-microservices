@@ -14,10 +14,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ApplicationProperties properties;
 
-    ProductService(
-            ProductRepository productRepository,
-            ApplicationProperties properties
-    ) {
+    ProductService(ProductRepository productRepository, ApplicationProperties properties) {
         this.productRepository = productRepository;
         this.properties = properties;
     }
@@ -36,8 +33,6 @@ public class ProductService {
                 productsPage.isFirst(),
                 productsPage.isLast(),
                 productsPage.hasNext(),
-                productsPage.hasPrevious()
-        );
-
+                productsPage.hasPrevious());
     }
 }
