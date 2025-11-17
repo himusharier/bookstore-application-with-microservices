@@ -25,11 +25,11 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Make mvnw executable
+      - name: Make mvnw Executable
         run: chmod +x ./mvnw
         working-directory: ./catalog-service
 
-      - name: Cache Maven dependencies
+      - name: Cache Maven Dependencies
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
@@ -40,6 +40,19 @@ jobs:
       - name: Build with Maven
         run: ./mvnw -ntp verify
 
-      - name: Run tests
+      - name: Run Tests
         run: ./mvnw test
         working-directory: ./catalog-service
+
+      - if: ${{ github.ref == 'refs/heads/main' }}
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - if: ${{ github.ref == 'refs/heads/main' }}
+        name: Build and Publish Docker Image
+        run:
+          ./mvnw spring-boot:build-image -DskipTests
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/bookstore-catalog-service
