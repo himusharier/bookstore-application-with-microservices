@@ -6,11 +6,10 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import com.himusharier.bookstore.orders.AbstractIT;
 import com.himusharier.bookstore.orders.testdata.TestDataFactory;
 import io.restassured.http.ContentType;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
-
-import java.math.BigDecimal;
 
 class OrderControllerTests extends AbstractIT {
 
